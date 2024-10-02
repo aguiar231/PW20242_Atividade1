@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% set titulo="cadastro" %}
+
+{% block conteudo %}
+<form action="/post_cadastro" method="post">
+    <div class="mb-3 form-floating">
+        <input class="form-control" type="text" name="nomeproduto" id="nomeproduto" placeholder=" ">
+        <label class="form-label" for="nome">Nome Produto</label>
+    </div>
+    <div class="mb-3 form-floating">
+        <input class="form-control" type="date" name="data_nascimento" id="data_nascimento" placeholder=" ">
+        <label class="form-label" for="data_nascimento">Data de Nascimento</label>
+    </div>
+    <div class="mb-3 form-floating">
+        <input class="form-control" type="text" name="descricaoproduto" id="descricaoproduto" placeholder=" ">
+        <label class="form-label" for="email">Descrição do produto</label>
+    </div>
+    <div class="mb-3 form-floating">
+        <input class="form-control" type="text" name="estoque" id="estoque" placeholder=" ">
+        <label class="form-label" for="senha">Estoque</label>
+    </div>
+    <div class="mb-3 form-floating">
+        <input class="form-control" type="preco" name="preco" id="preco" placeholder=" ">
+        <label class="form-label" for="preco">Preço</label>
+    </div>
+
+    <div class="mb-3">
+        <button class="btn btn-dark btn-lg" type="submit">Cadastrar</button>
+    </div>
+</form>
+{% endblock %}
