@@ -1,39 +1,38 @@
 from fastapi import FastAPI, Form, Request
-from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, RedirectResponse
-from starlette.requests import Request
-from util import ler_html, salvar_cadastro, salvar_contato
+from fastapi.templating import Jinja2Templates
+from util import ler_html, salvar_contato, salvar_cadastro
+import uvicorn
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory='templates')
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/", response_class=HTMLResponse)
-def paginaInicial(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+@app.get("/")
+def get_root(request: Request):
+    return templates.TemplateResponse('index.html', {"request": request})
 
 @app.get("/cadastro")
 def get_cadastro(request: Request):
-    html = ler_html("cadastro")
-    return HTMLResponse(html)
+    return templates.TemplateResponse('cadastro.html', {"request": request})
 
 @app.post("/post_cadastro")
 def post_cadastro(
-    request: Request, 
-    nome: str = Form(...), 
-    data_nascimento: str = Form(...), 
-    email: str = Form(...), 
-    senha: str = Form(...), 
-    confirmacao_senha: str = Form(...)):
-    if senha == confirmacao_senha:
-        salvar_cadastro(nome, data_nascimento, email, senha)
-        return RedirectResponse("/cadastro_recebido", 303)
-    else:
-        return RedirectResponse("/cadastro", 303)
+    request: Request,
+    nome: str = Form(...),
+    descricao: str = Form(...),
+    estoque: str = Form(...),
+    preco: str = Form(...),
+    categoria: str = Form(...)):  # Adicionando categoria
+    salvar_cadastro(nome, descricao, estoque, preco, categoria)  # Corrigido para salvar_cadastro
+    return RedirectResponse('/cadastro_recebido', 303)
 
-if __name__== "_main_":
-    import uvicorn
-    uvicorn.run("main:app", port=8000, reload=True)
+@app.get("/cadastro_recebido")
+def get_cadastro_recebido(request: Request):
+    return templates.TemplateResponse('index.html', {"request": request})
+
+if __name__ == "__main__":
+ uvicorn.run("main:app", port=8000, reload=True)
