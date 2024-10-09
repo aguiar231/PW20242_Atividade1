@@ -1,0 +1,5 @@
+Nome: ganso
+Descrição: animal
+Estoque:5
+Senha:50000
+Categoria:Alimentos

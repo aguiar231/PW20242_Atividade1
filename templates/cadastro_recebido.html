@@ -1,7 +1,9 @@
 {% extends "base.html" %}
-
-{% set titulo="Cadastro Recebido" %}
-
+{% set titulo = "Cadastro Recebido!" %}
 {% block conteudo %}
-<p class="form-label text-dark lead" >SEU CADASTRO FOI ENVIADO COM SUCESSO.</p>
+<p class="lead">Recebemos o cadastro de um novo produto.</p>
+<p><a class="btn btn-outline-dark rounded-0 my-3 shadow" href="/cadastro">Voltar para o cadastro</a>
+    <a class="btn btn-outline-dark rounded-0 my-3 shadow {{ css_principal }}" href="/">voltar Para Princiapal</a>
+</p>
+
 {% endblock %}
